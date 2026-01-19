@@ -28,18 +28,22 @@ public class UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
 
-        User SavedUser= repository.save(user);
+        User savedUser= repository.save(user);
         UserResponse userResponse = new UserResponse();
-        userResponse.setId(SavedUser.getId());
-        userResponse.setPassword(SavedUser.getPassword());
-        userResponse.setPassword(SavedUser.getEmail());
-        userResponse.setFirstName(SavedUser.getFirstName());
-        userResponse.setLastName(SavedUser.getLastName());
-        userResponse.setCreatedAt(SavedUser.getCreatedAt());
-        userResponse.setUpdatedAt(SavedUser.getUpdatedAt());
+        userResponse.setId(savedUser.getId());
+        userResponse.setPassword(savedUser.getPassword());
+        userResponse.setPassword(savedUser.getEmail());
+        userResponse.setFirstName(savedUser.getFirstName());
+        userResponse.setLastName(savedUser.getLastName());
+        userResponse.setCreatedAt(savedUser.getCreatedAt());
+        userResponse.setUpdatedAt(savedUser.getUpdatedAt());
 
-        return UserResponse;
+        return userResponse;
 
 
     }
-}
+
+    public UserResponse getUserProfile(String userId) {
+        User user =  repository.findById(userId)
+                    .orElseThrow(()>new RuntimeException("User Not found"))
+    }
